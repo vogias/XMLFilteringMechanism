@@ -25,36 +25,48 @@ import org.xml.sax.SAXException;
  */
 public class Core {
 
+	DocumentBuilderFactory parseFactory;
+	DocumentBuilder builder;
+
+	XPathFactory filterFactory;
+	XPath xpath;
+
+	public Core() {
+		// TODO Auto-generated constructor stub
+		parseFactory = DocumentBuilderFactory.newInstance();
+		parseFactory.setNamespaceAware(false);
+		try {
+			builder = parseFactory.newDocumentBuilder();
+
+			filterFactory = XPathFactory.newInstance();
+			xpath = filterFactory.newXPath();
+
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	private Document parseDocument(File file) {
 
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(false);
-		Document doc;
+		Document parseDoc;
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			try {
 
-				doc = builder.parse(file);
+			parseDoc = builder.parse(file);
 
-			} catch (SAXException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}
-		} catch (ParserConfigurationException e) {
+		} catch (SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 
-		return doc;
+		return parseDoc;
 	}
 
 	public boolean filterXML(File file, String expression) {
 		Document doc = parseDocument(file);
 
-		XPathFactory factory = XPathFactory.newInstance();
-		XPath xpath = factory.newXPath();
 		// xpath.setNamespaceContext(new PersonalNamespaceContext());
 		try {
 
