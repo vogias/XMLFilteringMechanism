@@ -18,8 +18,8 @@ public class Enviroment {
 			dataProviderFilteredOuT;
 	Arguments arguments;
 
-	public Enviroment() {
-		envCreation = createEnviroment();
+	public Enviroment(String sourcePath) {
+		envCreation = createEnviroment(sourcePath);
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class Enviroment {
 		this.dataProviderFilteredOuT = dataProviderFilteredOuT;
 	}
 
-	private boolean createEnviroment() {
+	private boolean createEnviroment(String sourcePath) {
 
 		try {
 			arguments = new Arguments();
@@ -121,7 +121,9 @@ public class Enviroment {
 				filteredInData.mkdir();
 				filteredOutData.mkdir();
 
-				File source = new File(arguments.getInputFolder());
+				// File source = new File(arguments.getInputFolder());
+
+				File source = new File(sourcePath);
 
 				if (source.exists()) {
 					dataProviderFilteredIn = new File(filteredInData,
@@ -152,13 +154,14 @@ public class Enviroment {
 
 	}
 
-	public static void main(String[] args) {// "http://83.212.101.124/odsAP/lomODS.xsd"
-		// TODO Auto-generated method stub
-		Enviroment enviroment = new Enviroment();
-
-		if (enviroment.envCreation) {
-			System.out.println(enviroment.getFilteredInData().getPath());
-			System.out.println(enviroment.getFilteredOutData().getPath());
-		}
-	}
+	// public static void main(String[] args) {//
+	// "http://83.212.101.124/odsAP/lomODS.xsd"
+	// // TODO Auto-generated method stub
+	// Enviroment enviroment = new Enviroment();
+	//
+	// if (enviroment.envCreation) {
+	// System.out.println(enviroment.getFilteredInData().getPath());
+	// System.out.println(enviroment.getFilteredOutData().getPath());
+	// }
+	// }
 }

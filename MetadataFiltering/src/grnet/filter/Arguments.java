@@ -36,9 +36,9 @@ public class Arguments {
 		this.props = props;
 	}
 
-	public String getInputFolder() {
-		return props.getProperty(Constants.inputFolder);
-	}
+	// public String getInputFolder() {
+	// return props.getProperty(Constants.inputFolder);
+	// }
 
 	public String getDestFolderLocation() {
 		return props.getProperty(Constants.outputFolder);

@@ -8,7 +8,7 @@ package grnet.filter;
  * 
  */
 public class Constants {
-	public static String inputFolder = "filtering.input.folder";
+	//public static String inputFolder = "filtering.input.folder";
 	public static String outputFolder = "filtering.output.folder";
 	public static String createReport = "filtering.report.mode";
 	public static String filteredInData = "IN";

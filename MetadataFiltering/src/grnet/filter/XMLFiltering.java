@@ -21,13 +21,13 @@ public class XMLFiltering {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method ssstub
 
-		Enviroment enviroment = new Enviroment();
+		Enviroment enviroment = new Enviroment(args[0]);
 
 		if (enviroment.envCreation) {
 			Core core = new Core();
 
-			XMLSource source = new XMLSource(enviroment.getArguments()
-					.getInputFolder());
+			XMLSource source = new XMLSource(args[0]);
+
 			File sourceFile = source.getSource();
 
 			if (sourceFile.exists()) {
