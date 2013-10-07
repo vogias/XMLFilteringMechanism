@@ -108,6 +108,11 @@ public class FilteringReport {
 		writer.newLine();
 	}
 
+	public void appendXPathExpression(String expression) throws IOException {
+		writer.append("XPath expression used:" + expression);
+		writer.newLine();
+	}
+
 	public void appendGeneralInfo() throws IOException {
 		appendTotalParsedFiles();
 		appendDuration();

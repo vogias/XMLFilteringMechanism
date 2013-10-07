@@ -90,8 +90,11 @@ public class XMLFiltering {
 						}
 					}
 				}
-				if (report != null)
+				if (report != null) {
+					report.appendXPathExpression(enviroment.getArguments()
+							.getQueries());
 					report.appendGeneralInfo();
+				}
 				System.out.println("Filtering is done.");
 			}
 
