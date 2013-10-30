@@ -11,12 +11,17 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author vogias
  * 
  */
 public class XMLFiltering {
+
+	private static final Logger slf4jLogger = LoggerFactory
+			.getLogger(XMLFiltering.class);
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method ssstub
@@ -34,13 +39,19 @@ public class XMLFiltering {
 
 				Collection<File> xmls = source.getXMLs();
 
-				System.out.println("Filtering folder:"
+				// System.out.println("Filtering folder:"
+				// + enviroment.dataProviderFilteredIn.getName());
+				// System.out.println("Number of files to filter:" +
+				// xmls.size());
+				//
+				slf4jLogger.info("Filtering folder:"
 						+ enviroment.dataProviderFilteredIn.getName());
-				System.out.println("Number of files to filter:" + xmls.size());
+				slf4jLogger.info("Number of files to filter:" + xmls.size());
 
 				Iterator<File> iterator = xmls.iterator();
 
-				System.out.println("Filtering...");
+				// System.out.println("Filtering...");
+				slf4jLogger.info("Filtering...");
 
 				FilteringReport report = null;
 				if (enviroment.getArguments().getProps()
@@ -71,7 +82,8 @@ public class XMLFiltering {
 									enviroment.getDataProviderFilteredIn());
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							// e.printStackTrace();
+							slf4jLogger.error(e.getMessage());
 						}
 					} else {
 
@@ -86,7 +98,8 @@ public class XMLFiltering {
 									enviroment.getDataProviderFilteredOuT());
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//e.printStackTrace();
+							slf4jLogger.error(e.getMessage());
 						}
 					}
 				}
@@ -95,7 +108,8 @@ public class XMLFiltering {
 							.getQueries());
 					report.appendGeneralInfo();
 				}
-				System.out.println("Filtering is done.");
+				//System.out.println("Filtering is done.");
+				slf4jLogger.info("Filtering is done.");
 			}
 
 		}

@@ -9,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author vogias
  * 
@@ -24,6 +27,8 @@ public class FilteringReport {
 	File filteringReport;
 	BufferedWriter writer;
 	long start;
+	private static final Logger slf4jLogger = LoggerFactory
+			.getLogger(FilteringReport.class);
 
 	public FilteringReport(String path, String name) throws IOException {
 		filteringReportpath = path;
@@ -35,6 +40,7 @@ public class FilteringReport {
 		writer = new BufferedWriter(new FileWriter(filteringReport));
 		writer.append("Report date:" + new Date().toString());
 		writer.newLine();
+		slf4jLogger.info("Report date:" + new Date().toString());
 
 	}
 
@@ -87,18 +93,23 @@ public class FilteringReport {
 		int total = getFilteredInFilesNum() + getFilteredOutFilesNum();
 		writer.append("Total parsed files:" + total);
 		writer.newLine();
+		slf4jLogger.info("Total parsed files:" + total);
 	}
 
 	private void appendFilteredInFilesNum() throws IOException {
 		writer.append("Number of filtered in records:"
 				+ getFilteredInFilesNum());
 		writer.newLine();
+		slf4jLogger.info("Number of filtered in records:"
+				+ getFilteredInFilesNum());
 	}
 
 	private void appendFilteredOutFilesNum() throws IOException {
 		writer.append("Number of filtered out records:"
 				+ getFilteredOutFilesNum());
 		writer.newLine();
+		slf4jLogger.info("Number of filtered out records:"
+				+ getFilteredOutFilesNum());
 	}
 
 	private void appendDuration() throws IOException {
@@ -106,11 +117,13 @@ public class FilteringReport {
 		long diff = end - start;
 		writer.append("Total time (ms):" + diff);
 		writer.newLine();
+		slf4jLogger.info("Total time (ms):" + diff);
 	}
 
 	public void appendXPathExpression(String expression) throws IOException {
 		writer.append("XPath expression used:" + expression);
 		writer.newLine();
+		slf4jLogger.info("XPath expression used:" + expression);
 	}
 
 	public void appendGeneralInfo() throws IOException {
