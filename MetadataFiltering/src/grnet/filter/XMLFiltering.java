@@ -51,7 +51,7 @@ public class XMLFiltering {
 				Iterator<File> iterator = xmls.iterator();
 
 				// System.out.println("Filtering...");
-				slf4jLogger.info("Filtering...");
+				
 
 				FilteringReport report = null;
 				if (enviroment.getArguments().getProps()
