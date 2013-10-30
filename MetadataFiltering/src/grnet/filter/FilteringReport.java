@@ -38,9 +38,10 @@ public class FilteringReport {
 		filteredOutFilesNum = 0;
 		start = System.currentTimeMillis();
 		writer = new BufferedWriter(new FileWriter(filteringReport));
-		writer.append("Report date:" + new Date().toString());
+		String date= new Date().toString();
+		writer.append("Report date:" + date);
 		writer.newLine();
-		slf4jLogger.info("Report date:" + new Date().toString());
+		slf4jLogger.info("Report date:" + date);
 
 	}
 
