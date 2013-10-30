@@ -51,7 +51,6 @@ public class XMLFiltering {
 				Iterator<File> iterator = xmls.iterator();
 
 				// System.out.println("Filtering...");
-				
 
 				FilteringReport report = null;
 				if (enviroment.getArguments().getProps()
@@ -84,6 +83,7 @@ public class XMLFiltering {
 							// TODO Auto-generated catch block
 							// e.printStackTrace();
 							slf4jLogger.error(e.getMessage());
+							slf4jLogger.error("Filtering failed.");
 						}
 					} else {
 
@@ -98,8 +98,9 @@ public class XMLFiltering {
 									enviroment.getDataProviderFilteredOuT());
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
-							//e.printStackTrace();
+							// e.printStackTrace();
 							slf4jLogger.error(e.getMessage());
+							slf4jLogger.error("Filtering failed.");
 						}
 					}
 				}
@@ -108,7 +109,7 @@ public class XMLFiltering {
 							.getQueries());
 					report.appendGeneralInfo();
 				}
-				//System.out.println("Filtering is done.");
+				// System.out.println("Filtering is done.");
 				slf4jLogger.info("Filtering is done.");
 			}
 
