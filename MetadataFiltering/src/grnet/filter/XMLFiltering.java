@@ -44,7 +44,7 @@ public class XMLFiltering {
 				// System.out.println("Number of files to filter:" +
 				// xmls.size());
 				//
-				slf4jLogger.info("Filtering folder:"
+				slf4jLogger.info("Filtering repository:"
 						+ enviroment.dataProviderFilteredIn.getName());
 				slf4jLogger.info("Number of files to filter:" + xmls.size());
 

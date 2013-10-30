@@ -41,7 +41,7 @@ public class FilteringReport {
 		String date= new Date().toString();
 		writer.append("Report date:" + date);
 		writer.newLine();
-		slf4jLogger.info("Report date:" + date);
+		slf4jLogger.info("Filtering date:" + date);
 
 	}
 
