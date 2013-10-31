@@ -26,6 +26,7 @@ public class XMLFiltering {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method ssstub
 
+		StringBuffer logString = new StringBuffer();
 		Enviroment enviroment = new Enviroment(args[0]);
 
 		if (enviroment.envCreation) {
@@ -44,9 +45,11 @@ public class XMLFiltering {
 				// System.out.println("Number of files to filter:" +
 				// xmls.size());
 				//
-				slf4jLogger.info("Filtering repository:"
+				System.out.println("Filtering repository:"
 						+ enviroment.dataProviderFilteredIn.getName());
-				slf4jLogger.info("Number of files to filter:" + xmls.size());
+				logString.append(enviroment.dataProviderFilteredIn.getName());
+
+				System.out.println("Number of files to filter:" + xmls.size());
 
 				Iterator<File> iterator = xmls.iterator();
 
@@ -82,8 +85,8 @@ public class XMLFiltering {
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							// e.printStackTrace();
-							slf4jLogger.error(e.getMessage());
-							slf4jLogger.error("Filtering failed.");
+							e.printStackTrace();
+							System.out.println("Filtering failed.");
 						}
 					} else {
 
@@ -99,18 +102,22 @@ public class XMLFiltering {
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							// e.printStackTrace();
-							slf4jLogger.error(e.getMessage());
-							slf4jLogger.error("Filtering failed.");
+							e.printStackTrace();
+							System.out.println("Filtering failed.");
 						}
 					}
 				}
 				if (report != null) {
-					report.appendXPathExpression(enviroment.getArguments()
-							.getQueries());
-					report.appendGeneralInfo();
+
+					logString.append(" "
+							+ report.appendXPathExpression(enviroment
+									.getArguments().getQueries()));
+
+					logString = report.appendGeneralInfo(logString);
 				}
 				// System.out.println("Filtering is done.");
-				slf4jLogger.info("Filtering is done.");
+				System.out.println("Filtering is done.");
+				slf4jLogger.info(logString.toString());
 			}
 
 		}

@@ -21,9 +21,7 @@ public class Enviroment {
 			dataProviderFilteredOuT;
 	Arguments arguments;
 
-	private static final Logger slf4jLogger = LoggerFactory
-			.getLogger(Enviroment.class);
-
+	
 	public Enviroment(String sourcePath) {
 		envCreation = createEnviroment(sourcePath);
 	}
@@ -143,8 +141,8 @@ public class Enviroment {
 					// System.err.println("Wrong source folder location.");
 					// System.err.println("Exiting...");
 
-					slf4jLogger.error("Wrong source folder location.");
-					slf4jLogger.error("Exiting...");
+					System.out.println("Wrong source folder location.");
+					System.err.println("Exiting...");
 					System.exit(-1);
 				}
 
@@ -154,12 +152,12 @@ public class Enviroment {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
-			slf4jLogger.error(e.getMessage());
+			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
-			slf4jLogger.error(e.getMessage());
+			e.printStackTrace();
 			return false;
 		}
 

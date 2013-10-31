@@ -27,8 +27,6 @@ public class FilteringReport {
 	File filteringReport;
 	BufferedWriter writer;
 	long start;
-	private static final Logger slf4jLogger = LoggerFactory
-			.getLogger(FilteringReport.class);
 
 	public FilteringReport(String path, String name) throws IOException {
 		filteringReportpath = path;
@@ -38,10 +36,9 @@ public class FilteringReport {
 		filteredOutFilesNum = 0;
 		start = System.currentTimeMillis();
 		writer = new BufferedWriter(new FileWriter(filteringReport));
-		String date= new Date().toString();
+		String date = new Date().toString();
 		writer.append("Report date:" + date);
 		writer.newLine();
-		slf4jLogger.info("Filtering date:" + date);
 
 	}
 
@@ -90,49 +87,59 @@ public class FilteringReport {
 		this.filteringReportpath = filteringReportpath;
 	}
 
-	private void appendTotalParsedFiles() throws IOException {
+	private String appendTotalParsedFiles() throws IOException {
 		int total = getFilteredInFilesNum() + getFilteredOutFilesNum();
 		writer.append("Total parsed files:" + total);
 		writer.newLine();
-		slf4jLogger.info("Total parsed files:" + total);
+
+		return String.valueOf(total);
 	}
 
-	private void appendFilteredInFilesNum() throws IOException {
-		writer.append("Number of filtered in records:"
-				+ getFilteredInFilesNum());
+	private String appendFilteredInFilesNum() throws IOException {
+
+		int filteredInFilesNum = getFilteredInFilesNum();
+		writer.append("Number of filtered in records:" + filteredInFilesNum);
 		writer.newLine();
-		slf4jLogger.info("Number of filtered in records:"
-				+ getFilteredInFilesNum());
+
+		return String.valueOf(filteredInFilesNum);
 	}
 
-	private void appendFilteredOutFilesNum() throws IOException {
+	private String appendFilteredOutFilesNum() throws IOException {
+		int filteredOutFilesNum = getFilteredOutFilesNum();
 		writer.append("Number of filtered out records:"
 				+ getFilteredOutFilesNum());
 		writer.newLine();
-		slf4jLogger.info("Number of filtered out records:"
-				+ getFilteredOutFilesNum());
+
+		return String.valueOf(filteredOutFilesNum);
 	}
 
-	private void appendDuration() throws IOException {
+	private String appendDuration() throws IOException {
 		long end = System.currentTimeMillis();
 		long diff = end - start;
 		writer.append("Total time (ms):" + diff);
 		writer.newLine();
-		slf4jLogger.info("Total time (ms):" + diff);
+
+		return String.valueOf(diff);
 	}
 
-	public void appendXPathExpression(String expression) throws IOException {
+	public String appendXPathExpression(String expression) throws IOException {
 		writer.append("XPath expression used:" + expression);
 		writer.newLine();
-		slf4jLogger.info("XPath expression used:" + expression);
+
+		return expression;
 	}
 
-	public void appendGeneralInfo() throws IOException {
-		appendTotalParsedFiles();
-		appendDuration();
-		appendFilteredInFilesNum();
-		appendFilteredOutFilesNum();
+	public StringBuffer appendGeneralInfo(StringBuffer input)
+			throws IOException {
+
+		input.append(" " + appendTotalParsedFiles());
+		input.append(" " + appendDuration());
+		input.append(" " + appendFilteredInFilesNum());
+		input.append(" " + appendFilteredOutFilesNum());
+
 		writer.close();
+
+		return input;
 
 	}
 
