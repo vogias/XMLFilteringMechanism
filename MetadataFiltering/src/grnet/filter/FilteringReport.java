@@ -129,17 +129,14 @@ public class FilteringReport {
 		return expression;
 	}
 
-	public StringBuffer appendGeneralInfo(StringBuffer input)
-			throws IOException {
+	public void appendGeneralInfo() throws IOException {
 
-		input.append(" " + appendTotalParsedFiles());
-		input.append(" " + appendDuration());
-		input.append(" " + appendFilteredInFilesNum());
-		input.append(" " + appendFilteredOutFilesNum());
+		appendTotalParsedFiles();
+		appendDuration();
+		appendFilteredInFilesNum();
+		appendFilteredOutFilesNum();
 
 		writer.close();
-
-		return input;
 
 	}
 

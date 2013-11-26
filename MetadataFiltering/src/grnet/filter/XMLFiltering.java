@@ -26,7 +26,7 @@ public class XMLFiltering {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method ssstub
 
-		StringBuffer logString = new StringBuffer();
+		// StringBuffer logString = new StringBuffer();
 		Enviroment enviroment = new Enviroment(args[0]);
 
 		if (enviroment.envCreation) {
@@ -47,7 +47,7 @@ public class XMLFiltering {
 				//
 				System.out.println("Filtering repository:"
 						+ enviroment.dataProviderFilteredIn.getName());
-				logString.append(enviroment.dataProviderFilteredIn.getName());
+				// logString.append(enviroment.dataProviderFilteredIn.getName());
 
 				System.out.println("Number of files to filter:" + xmls.size());
 
@@ -66,12 +66,21 @@ public class XMLFiltering {
 
 				while (iterator.hasNext()) {
 
+					StringBuffer logString = new StringBuffer();
+					logString.append(enviroment.dataProviderFilteredIn
+							.getName());
 					File xmlFile = iterator.next();
+
+					String name = xmlFile.getName();
+					name = name.substring(0, name.indexOf(".xml"));
+					logString.append(" " + name);
 
 					boolean xmlIsFilteredIn = core.filterXML(xmlFile,
 							enviroment.getArguments().getQueries());
 
 					if (xmlIsFilteredIn) {
+						logString.append(" " + "FilteredIn");
+						slf4jLogger.info(logString.toString());
 						try {
 							if (report != null) {
 								report.appendXMLFileNameNStatus(
@@ -89,7 +98,8 @@ public class XMLFiltering {
 							System.out.println("Filtering failed.");
 						}
 					} else {
-
+						logString.append(" " + "FilteredOut");
+						slf4jLogger.info(logString.toString());
 						try {
 							if (report != null) {
 								report.appendXMLFileNameNStatus(
@@ -109,15 +119,14 @@ public class XMLFiltering {
 				}
 				if (report != null) {
 
-					logString.append(" "
-							+ report.appendXPathExpression(enviroment
-									.getArguments().getQueries()));
+					report.appendXPathExpression(enviroment.getArguments()
+							.getQueries());
 
-					logString = report.appendGeneralInfo(logString);
+					report.appendGeneralInfo();
 				}
 				// System.out.println("Filtering is done.");
 				System.out.println("Filtering is done.");
-				slf4jLogger.info(logString.toString());
+				// slf4jLogger.info(logString.toString());
 			}
 
 		}
