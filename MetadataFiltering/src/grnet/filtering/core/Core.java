@@ -81,6 +81,8 @@ public class Core {
 			XPathExpression expr = xpath.compile(expression);
 
 			Object result = expr.evaluate(doc);
+			
+			
 
 			if (result != null) {
 				if (result instanceof String) {
@@ -88,7 +90,7 @@ public class Core {
 					String res = (String) result;
 					try {
 						double d = Double.parseDouble(res);
-						System.out.println("Double value is:" + d);
+						//System.out.println("Double value is:" + d);
 						if (d > 0)
 							return true;
 						else
@@ -99,6 +101,7 @@ public class Core {
 						if (res.equalsIgnoreCase("true"))
 							return true;
 						else if (res.equalsIgnoreCase("false"))
+
 							return false;
 						else {
 

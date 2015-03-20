@@ -24,6 +24,10 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
 /**
  * @author vogias
  * 
@@ -33,10 +37,12 @@ public class XMLFiltering {
 	private static final Logger slf4jLogger = LoggerFactory
 			.getLogger(XMLFiltering.class);
 
+	private final static String QUEUE_NAME = "filtering";
+
+	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method ssstub
 
-		// StringBuffer logString = new StringBuffer();
 		Enviroment enviroment = new Enviroment(args[0]);
 
 		if (enviroment.envCreation) {
@@ -50,20 +56,14 @@ public class XMLFiltering {
 
 				Collection<File> xmls = source.getXMLs();
 
-				// System.out.println("Filtering folder:"
-				// + enviroment.dataProviderFilteredIn.getName());
-				// System.out.println("Number of files to filter:" +
-				// xmls.size());
-				//
+				
 				System.out.println("Filtering repository:"
 						+ enviroment.dataProviderFilteredIn.getName());
-				// logString.append(enviroment.dataProviderFilteredIn.getName());
 
 				System.out.println("Number of files to filter:" + xmls.size());
 
 				Iterator<File> iterator = xmls.iterator();
 
-				// System.out.println("Filtering...");
 
 				FilteringReport report = null;
 				if (enviroment.getArguments().getProps()
@@ -74,6 +74,13 @@ public class XMLFiltering {
 							.getDataProviderFilteredIn().getName());
 				}
 
+				ConnectionFactory factory = new ConnectionFactory();
+				factory.setHost(enviroment.getArguments().getQueueHost());
+				factory.setUsername(enviroment.getArguments()
+						.getQueueUserName());
+				factory.setPassword(enviroment.getArguments()
+						.getQueuePassword());
+				
 				while (iterator.hasNext()) {
 
 					StringBuffer logString = new StringBuffer();
@@ -91,6 +98,17 @@ public class XMLFiltering {
 					if (xmlIsFilteredIn) {
 						logString.append(" " + "FilteredIn");
 						slf4jLogger.info(logString.toString());
+						
+						Connection connection = factory.newConnection();
+						Channel channel = connection.createChannel();
+						channel.queueDeclare(QUEUE_NAME, false, false, false,
+								null);
+
+						channel.basicPublish("", QUEUE_NAME, null, logString
+								.toString().getBytes());
+						channel.close();
+						connection.close();
+						
 						try {
 							if (report != null) {
 								report.appendXMLFileNameNStatus(
@@ -110,6 +128,16 @@ public class XMLFiltering {
 					} else {
 						logString.append(" " + "FilteredOut");
 						slf4jLogger.info(logString.toString());
+						
+						Connection connection = factory.newConnection();
+						Channel channel = connection.createChannel();
+						channel.queueDeclare(QUEUE_NAME, false, false, false,
+								null);
+
+						channel.basicPublish("", QUEUE_NAME, null, logString
+								.toString().getBytes());
+						channel.close();
+						connection.close();
 						try {
 							if (report != null) {
 								report.appendXMLFileNameNStatus(
@@ -134,9 +162,7 @@ public class XMLFiltering {
 
 					report.appendGeneralInfo();
 				}
-				// System.out.println("Filtering is done.");
 				System.out.println("Filtering is done.");
-				// slf4jLogger.info(logString.toString());
 			}
 
 		}

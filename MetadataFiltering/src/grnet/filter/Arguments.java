@@ -13,6 +13,7 @@
  */
 package grnet.filter;
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -46,9 +47,18 @@ public class Arguments {
 		this.props = props;
 	}
 
-	// public String getInputFolder() {
-	// return props.getProperty(Constants.inputFolder);
-	// }
+	public String getQueueUserName() {
+		return props.getProperty(Constants.queueUser);
+	}
+
+	public String getQueuePassword() {
+		return props.getProperty(Constants.queuePass);
+	}
+
+	public String getQueueHost() {
+		return props.getProperty(Constants.queueHost);
+	}
+
 
 	public String getDestFolderLocation() {
 		return props.getProperty(Constants.outputFolder);
